@@ -1,42 +1,76 @@
-import { TextStyle } from 'react-native';
-import type { FontColors, FontSizes } from '@/types/theme/fonts';
-import type { UnionConfiguration } from '@/types/theme/config';
-import { config } from '@/theme/_config';
+/**
+ * This file contains all application's style relative to fonts
+ */
+import { StyleSheet } from 'react-native';
 
-export const generateFontColors = (configuration: UnionConfiguration) => {
-	return Object.entries(configuration.fonts.colors ?? {}).reduce(
-		(acc, [key, value]) => {
-			return Object.assign(acc, {
-				[`${key}`]: {
-					color: value,
-				},
-			});
-		},
-		{} as FontColors,
-	);
-};
+import { ThemeVariables } from 'types/theme';
 
-export const generateFontSizes = () => {
-	return config.fonts.sizes.reduce((acc, size) => {
-		return Object.assign(acc, {
-			[`size_${size}`]: {
-				fontSize: size,
-			},
-		});
-	}, {} as FontSizes);
-};
-
-export const staticFontStyles = {
-	bold: {
-		fontWeight: 'bold',
-	},
-	uppercase: {
-		textTransform: 'uppercase',
-	},
-	capitalize: {
-		textTransform: 'capitalize',
-	},
-	alignCenter: {
-		textAlign: 'center',
-	},
-} as const satisfies Record<string, TextStyle>;
+export default function ({ FontSize, Colors }: ThemeVariables) {
+  return StyleSheet.create({
+    textTiny: {
+      fontSize: FontSize.tiny,
+      color: Colors.textGray400,
+    },
+    textSmall: {
+      fontSize: FontSize.small,
+      color: Colors.textGray400,
+    },
+    textRegular: {
+      fontSize: FontSize.regular,
+      color: Colors.textGray400,
+    },
+    textLarge: {
+      fontSize: FontSize.large,
+      color: Colors.textGray400,
+    },
+    textBold: {
+      fontWeight: 'bold',
+    },
+    textUppercase: {
+      textTransform: 'uppercase',
+    },
+    titleSmall: {
+      fontSize: FontSize.small * 1.5,
+      fontWeight: 'bold',
+      color: Colors.textGray800,
+    },
+    titleRegular: {
+      fontSize: FontSize.regular * 2,
+      fontWeight: 'bold',
+      color: Colors.textGray800,
+    },
+    titleLarge: {
+      fontSize: FontSize.large * 2,
+      fontWeight: 'bold',
+      color: Colors.textGray800,
+    },
+    textCenter: {
+      textAlign: 'center',
+    },
+    textJustify: {
+      textAlign: 'justify',
+    },
+    textLeft: {
+      textAlign: 'left',
+    },
+    textRight: {
+      textAlign: 'right',
+    },
+    textError: {
+      color: Colors.error,
+    },
+    textSuccess: {
+      color: Colors.success,
+    },
+    textPrimary: {
+      color: Colors.primary,
+    },
+    textLight: {
+      color: Colors.textGray200,
+    },
+    textLobster: {
+      fontFamily: 'lobster',
+      fontWeight: 'normal',
+    },
+  });
+}

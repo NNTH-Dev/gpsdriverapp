@@ -1,61 +1,70 @@
-import { config } from '@/theme/_config';
+import { StyleSheet } from 'react-native';
 
-import type { Gutters } from '@/types/theme/gutters';
-import type { ViewStyle } from 'react-native';
+import { Gutters, ThemeVariables } from 'types/theme';
 
-export const generateGutters = (): Gutters => {
-	return config.gutters.reduce((acc, curr) => {
-		return Object.assign(acc, {
-			[`margin_${curr}`]: {
-				margin: curr,
-			},
-			[`marginBottom_${curr}`]: {
-				marginBottom: curr,
-			},
-			[`marginTop_${curr}`]: {
-				marginTop: curr,
-			},
-			[`marginRight_${curr}`]: {
-				marginRight: curr,
-			},
-			[`marginLeft_${curr}`]: {
-				marginLeft: curr,
-			},
-			[`marginVertical_${curr}`]: {
-				marginVertical: curr,
-			},
-			[`marginHorizontal_${curr}`]: {
-				marginHorizontal: curr,
-			},
-			[`padding_${curr}`]: {
-				padding: curr,
-			},
-			[`paddingBottom_${curr}`]: {
-				paddingBottom: curr,
-			},
-			[`paddingTop_${curr}`]: {
-				paddingTop: curr,
-			},
-			[`paddingRight_${curr}`]: {
-				paddingRight: curr,
-			},
-			[`paddingLeft_${curr}`]: {
-				paddingLeft: curr,
-			},
-			[`paddingVertical_${curr}`]: {
-				paddingVertical: curr,
-			},
-			[`paddingHorizontal_${curr}`]: {
-				paddingHorizontal: curr,
-			},
-			[`gap_${curr}`]: {
-				gap: curr,
-			},
-		});
-	}, {} as Gutters);
-};
-
-export const staticGutterStyles = {} as const satisfies Record<
-	string,
-	ViewStyle
->;
+/**
+ * Generate Styles depending on MetricsSizes vars availabled at ./theme/Variables
+ * Styles are like :
+ * <size><direction><op>: {
+ *    <op><direction>: <value>
+ * }
+ * where:
+ * <size>: is the key of the variable included in MetricsSizes
+ * <direction>: can be ['Bottom','Top','Right','Left','Horizontal','Vertical']
+ * <op>: can be ['Margin', 'Padding']
+ * <value>: is the value of the <size>
+ */
+export default function ({ MetricsSizes }: ThemeVariables): Gutters {
+  return StyleSheet.create(
+    Object.entries(MetricsSizes).reduce(
+      (acc, [key, value]) => ({
+        ...acc,
+        /* Margins */
+        [`${key}Margin`]: {
+          margin: value,
+        },
+        [`${key}BMargin`]: {
+          marginBottom: value,
+        },
+        [`${key}TMargin`]: {
+          marginTop: value,
+        },
+        [`${key}RMargin`]: {
+          marginRight: value,
+        },
+        [`${key}LMargin`]: {
+          marginLeft: value,
+        },
+        [`${key}VMargin`]: {
+          marginVertical: value,
+        },
+        [`${key}HMargin`]: {
+          marginHorizontal: value,
+        },
+        /* Paddings */
+        [`${key}Padding`]: {
+          padding: value,
+        },
+        [`${key}BPadding`]: {
+          paddingBottom: value,
+        },
+        [`${key}TPadding`]: {
+          paddingTop: value,
+        },
+        [`${key}RPadding`]: {
+          paddingRight: value,
+        },
+        [`${key}LPadding`]: {
+          paddingLeft: value,
+        },
+        [`${key}VPadding`]: {
+          paddingVertical: value,
+        },
+        [`${key}HPadding`]: {
+          paddingHorizontal: value,
+        },
+      }),
+      {},
+    ) as Gutters,
+  );
+}

@@ -1,27 +1,52 @@
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import { Platform, SafeAreaView, StatusBar } from 'react-native';
+
+import { useFlipper } from '@react-navigation/devtools';
 import { NavigationContainer } from '@react-navigation/native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { createStackNavigator } from '@react-navigation/stack';
+import { ApplicationStackParamList } from 'types/navigation';
 
-import { Example, Startup } from '@/screens';
-import { useTheme } from '@/theme';
+// import AuthNavigator from './Auth';
+// import MainNavigator from './Main';
+import { rootNavigationRef } from './RootNavigation';
+// import TripsNavigator from './TripsNavigator';
 
-import type { RootStackParamList } from '@/types/navigation';
+import { useTheme } from '@/hooks';
+// import Notification from '@/screens/Notification';
+// import Startup from '@/screens/Startup';
+import { Colors } from '@/theme/Variables';
+import { Startup } from '@/screens';
 
-const Stack = createStackNavigator<RootStackParamList>();
+const Stack = createStackNavigator<ApplicationStackParamList>();
 
-function ApplicationNavigator() {
-	const { variant, navigationTheme } = useTheme();
+// @refresh reset
+const ApplicationNavigator = () => {
+  const { Layout, NavigationTheme } = useTheme();
+  const { colors } = NavigationTheme;
 
-	return (
-		<SafeAreaProvider>
-			<NavigationContainer theme={navigationTheme}>
-				<Stack.Navigator key={variant} screenOptions={{ headerShown: false }}>
-					<Stack.Screen name="Startup" component={Startup} />
-					<Stack.Screen name="Example" component={Example} />
-				</Stack.Navigator>
-			</NavigationContainer>
-		</SafeAreaProvider>
-	);
-}
+  useFlipper(rootNavigationRef);
+
+  return (
+    <SafeAreaView
+      style={[
+        Layout.fill,
+        {
+          backgroundColor: Platform.OS === 'ios' ? Colors.primary : colors.card,
+        },
+      ]}
+    >
+      <NavigationContainer theme={NavigationTheme} ref={rootNavigationRef}>
+        <StatusBar backgroundColor={Colors.blue} barStyle={'light-content'} />
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Startup" component={Startup} />
+          {/* <Stack.Screen name="Main" component={MainNavigator} />
+          <Stack.Screen name="Auth" component={AuthNavigator} />
+          <Stack.Screen name="Notification" component={Notification} />
+          <Stack.Screen name="TripsNavigator" component={TripsNavigator} /> */}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </SafeAreaView>
+  );
+};
 
 export default ApplicationNavigator;

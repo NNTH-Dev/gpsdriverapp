@@ -1,59 +1,44 @@
-import { useEffect } from 'react';
-import { ActivityIndicator, Text, View } from 'react-native';
-import { useQuery } from '@tanstack/react-query';
-import { useTranslation } from 'react-i18next';
-import { CommonActions } from '@react-navigation/native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator, View } from 'react-native';
 
-import { useTheme } from '@/theme';
-import { Brand } from '@/components/molecules';
-import { SafeScreen } from '@/components/template';
+import { useSelector } from 'react-redux';
+import { ApplicationScreenProps } from 'types/navigation';
 
-import type { RootScreenProps } from '@/types/navigation';
+import Brand from '@/components/atoms/Brand';
+import { useTheme } from '@/hooks';
+// import { isLoggedIn } from '@/store/auth';
+import { setDefaultTheme } from '@/store/theme';
 
-function Startup({ navigation }: RootScreenProps<'Startup'>) {
-	const { layout, gutters, fonts } = useTheme();
-	const { t } = useTranslation(['startup']);
+const Startup = ({ navigation }: ApplicationScreenProps) => {
+  const { Gutters } = useTheme();
 
-	const { isSuccess, isFetching, isError } = useQuery({
-		queryKey: ['startup'],
-		queryFn: () => {
-			return Promise.resolve(true);
-		},
-	});
+  //   const isLogged = useSelector((state: any) => isLoggedIn(state));
 
-	useEffect(() => {
-		if (isSuccess) {
-			navigation.dispatch(
-				CommonActions.reset({
-					index: 0,
-					routes: [{ name: 'Example' }],
-				}),
-			);
-		}
-	}, [isSuccess]);
+  const init = async () => {
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        resolve(true);
+      }, 2000),
+    );
+    // await setDefaultTheme({ theme: 'default', darkMode: null });
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: isLogged ? 'Main' : 'Auth' }],
+    // });
+  };
 
-	return (
-		<SafeScreen>
-			<View
-				style={[
-					layout.flex_1,
-					layout.col,
-					layout.itemsCenter,
-					layout.justifyCenter,
-				]}
-			>
-				<Brand />
-				{isFetching && (
-					<ActivityIndicator size="large" style={[gutters.marginVertical_24]} />
-				)}
-				{isError && (
-					<Text style={[fonts.size_16, fonts.red500]}>
-						{t('startup:error')}
-					</Text>
-				)}
-			</View>
-		</SafeScreen>
-	);
-}
+  useEffect(() => {
+    // init();
+  }, []);
+
+  return (
+    <View
+    // className='flex-1 flex-col items-center justify-center bg-white'
+    >
+      <Brand />
+      <ActivityIndicator size={'large'} style={[Gutters.largeVMargin]} />
+    </View>
+  );
+};
 
 export default Startup;
