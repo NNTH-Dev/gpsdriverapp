@@ -16,6 +16,7 @@ import { useTheme } from '@/hooks';
 // import Startup from '@/screens/Startup';
 import { Colors } from '@/theme/Variables';
 import { Startup } from '@/screens';
+import LoginScreen from '@/screens/LoginScreen';
 
 const Stack = createStackNavigator<ApplicationStackParamList>();
 
@@ -38,7 +39,7 @@ const ApplicationNavigator = () => {
       <NavigationContainer theme={NavigationTheme} ref={rootNavigationRef}>
         <StatusBar backgroundColor={Colors.blue} barStyle={'light-content'} />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
-          <Stack.Screen name="Startup" component={Startup} />
+          <Stack.Screen name="Login" component={LoginScreen} />
           {/* <Stack.Screen name="Main" component={MainNavigator} />
           <Stack.Screen name="Auth" component={AuthNavigator} />
           <Stack.Screen name="Notification" component={Notification} />

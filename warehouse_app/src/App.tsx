@@ -12,6 +12,8 @@ import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import { persistor, store } from './store';
 import { PaperProvider } from 'react-native-paper';
+import { ApplicationProvider } from '@ui-kitten/components';
+import * as eva from '@eva-design/eva';
 
 EStyleSheet.build;
 
@@ -29,10 +31,9 @@ function App() {
       </QueryClientProvider> */}
       <PersistGate loading={null} persistor={persistor}>
         <PaperProvider>
-          {/* <ThemeProvider storage={storage}> */}
-          <ApplicationNavigator />
-          {/* </ThemeProvider> */}
-          {/* <ApplicationNavigator /> */}
+          <ApplicationProvider {...eva} theme={eva.light}>
+            <ApplicationNavigator />
+          </ApplicationProvider>
         </PaperProvider>
       </PersistGate>
     </Provider>

@@ -27,6 +27,7 @@ export type AuthParamsList = {
 
 export type ApplicationStackParamList = {
   Startup: undefined;
+  Login: undefined;
   Main: NavigatorScreenParams<MainParamsList>;
   Auth: NavigatorScreenParams<AuthParamsList>;
   Notification: undefined;

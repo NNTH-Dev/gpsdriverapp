@@ -13,7 +13,7 @@ module.exports = {
 		  },
 		},
 	  ],
-	//   'nativewind/babel',
+	  'nativewind/babel',
 	  'inline-dotenv',
 	  'react-native-reanimated/plugin', // needs to be last
 	],

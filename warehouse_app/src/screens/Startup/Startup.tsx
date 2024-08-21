@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { ActivityIndicator, View } from 'react-native';
+import { ApplicationProvider, Layout, Text } from '@ui-kitten/components';
 
 import { useSelector } from 'react-redux';
 import { ApplicationScreenProps } from 'types/navigation';
@@ -8,6 +8,7 @@ import Brand from '@/components/atoms/Brand';
 import { useTheme } from '@/hooks';
 // import { isLoggedIn } from '@/store/auth';
 import { setDefaultTheme } from '@/store/theme';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 
 const Startup = ({ navigation }: ApplicationScreenProps) => {
   const { Gutters } = useTheme();
@@ -32,13 +33,12 @@ const Startup = ({ navigation }: ApplicationScreenProps) => {
   }, []);
 
   return (
-    <View
-    // className='flex-1 flex-col items-center justify-center bg-white'
-    >
-      <Brand />
-      <ActivityIndicator size={'large'} style={[Gutters.largeVMargin]} />
-    </View>
+    <Layout className="bg-red-500">
+      <Text className=" text-red-500">HOME</Text>
+    </Layout>
   );
 };
+
+const layoutStyles = 'flex: 1, justifyContent: center, alignItems: center';
 
 export default Startup;
