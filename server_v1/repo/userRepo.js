@@ -3,13 +3,15 @@ class UserRepository {
     this.userModel = userModel;
   }
 
-  addUser(uuid, name, age, mobile, address) {
+  addUser(id, username, email, firstName, lastName, phoneNumber, address) {
     return this.userModel.create({
-      uuid,
-      name,
-      age,
-      mobile,
-      address
+      id,
+      username,
+      email,
+      firstName,
+      lastName,
+      phoneNumber,
+      address,
     });
   }
 
